@@ -1,7 +1,6 @@
-const { Router} = require('express')
-const axios = require('axios')
-const Dev = require('./models/Dev')
-
+const { Router } = require('express')
+const DevController = require('./controllers/DevControllers')
+const SearchControlle = require('./controllers/SearchController')
 const routes = Router();
 
 // Metodos HTTP: GET, POST, PUT, DELETE
@@ -14,15 +13,8 @@ const routes = Router();
 
 // MongoDB (Não-relacional)
 
-routes.post('/devs', async (request, response) => {
-    const { github_username, techs } = request.body
-
-    const apiResponse = await axios.get(`https//api.github.com/users/${github_username}`)
-
-    console.log(apiResponse.data)
-
-    return response.json({message: 'Hello Emmanoel'})
-    
-})
+routes.get('/devs', DevController.index)
+routes.post('/devs', DevController.store)
+routes.get('/search', SearchControlle.index)
 
 module.exports = routes
